@@ -1,27 +1,13 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-})
-
-app.get('/about', ((req, res) => {
-    res.sendFile(__dirname + '/about.html');
-}))
-
-app.get('/features', (req, res) => {
-    res.sendFile(__dirname + '/features.html');
-})
-
-app.get('/favicon', (req, res) => {
-    res.sendFile(__dirname + '/src/favicon.ico')
-})
-
-app.get('/logo', (req, res) => {
-    res.sendFile(__dirname + "/src/logo_white.png")
-})
-
+app.use("/", require(path.join(__dirname, "routes", "home")));
+app.use("/about", require(path.join(__dirname, "routes", "about")));
+app.use("/features", require(path.join(__dirname, "routes", "features")));
+app.use("/logo", require(path.join(__dirname, "routes", "logo")));
+app.use("/favicon", require(path.join(__dirname, "routes", "favicon")));
 app.listen(port, () =>
-    console.log(`App listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 );
